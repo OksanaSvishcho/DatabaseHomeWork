@@ -36,4 +36,111 @@ public class DatabaseQueryService {
         }
         return result;
     }
+
+    public List<MaxSalaryWorker> findMaxSalaryWorker() {
+        List<MaxSalaryWorker> result = new ArrayList<>();
+        String filePath = "sql/find_max_salary_worker.sql";
+        try (Connection connection = Database.getInstance().getConnection()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                StringBuilder sql = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    sql.append(line).append("\n");
+                }
+                try (Statement stmt = connection.createStatement();
+                     ResultSet rs = stmt.executeQuery(sql.toString())) {
+                    while (rs.next()) {
+                        MaxSalaryWorker worker = new MaxSalaryWorker();
+                        worker.setName(rs.getString("name"));
+                        worker.setSalary(rs.getInt("salary"));
+                        result.add(worker);
+                    }
+                }
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    // Метод для find_longest_project
+    public List<LongestProject> findLongestProject() {
+        List<LongestProject> result = new ArrayList<>();
+        String filePath = "sql/find_longest_project.sql";
+        try (Connection connection = Database.getInstance().getConnection()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                StringBuilder sql = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    sql.append(line).append("\n");
+                }
+                try (Statement stmt = connection.createStatement();
+                     ResultSet rs = stmt.executeQuery(sql.toString())) {
+                    while (rs.next()) {
+                        LongestProject project = new LongestProject();
+                        project.setName(rs.getString("name"));
+                        project.setDuration(rs.getInt("duration"));
+                        result.add(project);
+                    }
+                }
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public List<YoungestEldestWorkers> findYoungestEldestWorkers() {
+        List<YoungestEldestWorkers> result = new ArrayList<>();
+        String filePath = "sql/find_youngest_eldest_workers.sql";
+        try (Connection connection = Database.getInstance().getConnection()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                StringBuilder sql = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    sql.append(line).append("\n");
+                }
+                try (Statement stmt = connection.createStatement();
+                     ResultSet rs = stmt.executeQuery(sql.toString())) {
+                    while (rs.next()) {
+                        YoungestEldestWorkers worker = new YoungestEldestWorkers();
+                        worker.setType(rs.getString("type"));
+                        worker.setName(rs.getString("name"));
+                        worker.setBirthday(rs.getString("birthday"));
+                        result.add(worker);
+                    }
+                }
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public List<ProjectPrice> printProjectPrices() {
+        List<ProjectPrice> result = new ArrayList<>();
+        String filePath = "sql/print_project_prices.sql";
+        try (Connection connection = Database.getInstance().getConnection()) {
+            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+                String line;
+                StringBuilder sql = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    sql.append(line).append("\n");
+                }
+                try (Statement stmt = connection.createStatement();
+                     ResultSet rs = stmt.executeQuery(sql.toString())) {
+                    while (rs.next()) {
+                        ProjectPrice projectPrice = new ProjectPrice();
+                        projectPrice.setProjectName(rs.getString("project_name"));
+                        projectPrice.setPrice(rs.getDouble("price"));
+                        result.add(projectPrice);
+                    }
+                }
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }
