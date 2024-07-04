@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class DatabaseInitService {
 
     public static void main(String[] args) {
-        String filePath = "sql/init_db.sql";
+        String filePath = "sql/V1_init_db.sql";
         try (Connection connection = Database.getInstance().getConnection()) {
             try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
                 String line;
